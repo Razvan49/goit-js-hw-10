@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Notiflix from 'notiflix';
+import Notiflix from 'notiflix'; // Importă Notiflix
 import SlimSelect from 'slim-select';
 
 import {
@@ -20,6 +20,13 @@ const catInfo = document.querySelector('.cat-info');
 
 function populateBreedsSelect(breeds) {
   breedSelect.innerHTML = '';
+
+  // Adăugăm opțiunea "Select..." înainte de rasele reale
+  const selectOption = document.createElement('option');
+  selectOption.value = '';
+  selectOption.text = 'Select...';
+  breedSelect.appendChild(selectOption);
+
   breeds.forEach(breed => {
     const option = document.createElement('option');
     option.value = breed.id;
@@ -75,7 +82,6 @@ breedSelect.addEventListener('change', () => {
         hideLoader();
       })
       .catch(error => {
-        showError('Oops! Something went wrong while fetching cat information.');
         hideLoader();
       });
   }
@@ -90,6 +96,5 @@ fetchBreeds()
     hideLoader();
   })
   .catch(error => {
-    showError('Oops! Something went wrong while fetching cat breeds.');
     hideLoader();
   });

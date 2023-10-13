@@ -1,6 +1,8 @@
 // cat-api.js
 
 import axios from 'axios';
+import Notiflix from 'notiflix'; // Importă Notiflix
+import SlimSelect from 'slim-select';
 
 axios.defaults.headers.common['x-api-key'] =
   'live_GxntjWVFysDDmK65w6CHaORQQrcqgqVj2RgeSSBKRwPWbtOJQu5vYIWL93TEwLlM';
@@ -16,7 +18,7 @@ export function fetchBreeds() {
       return response.data;
     })
     .catch(error => {
-      showError(); // Afiseaza eroarea
+      showError('Oops! Something went wrong! Try reloading the page!'); // Afiseaza eroarea
       hideLoader(); // Ascunde loader în caz de eroare
       throw error;
     });
@@ -32,7 +34,7 @@ export function fetchCatByBreed(breedId) {
       return response.data[0];
     })
     .catch(error => {
-      showError(); // Afiseaza eroarea
+      showError('Oops! Something went wrong! Try reloading the page!'); // Afiseaza eroarea
       hideLoader(); // Ascunde loader în caz de eroare
       throw error;
     });
@@ -52,8 +54,11 @@ export function hideLoader() {
 }
 
 // Funcția pentru a afișa mesajul de eroare și ascunde celelalte elemente
-export function showError() {
-  document.querySelector('.error').style.display = 'block';
+export function showError(message) {
+  // Utilizează Notiflix Notify pentru a afișa notificarea de eroare
+  Notiflix.Notify.failure(message);
+
+  // Ascunde elementele corespunzătoare
   document.querySelector('.cat-info').style.display = 'none';
   document.querySelector('.breed-select').style.display = 'none';
 }
