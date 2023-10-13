@@ -1,2 +1,50 @@
 @import './common';
-@import './example';
+.cat-info {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.cat__image {
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+  margin-top: 20px;
+  border: 5px solid #555;
+}
+
+.cat__name {
+  max-width: 500px;
+  font-size: 30;
+  font-weight: 700;
+  margin-top: 20px;
+}
+.cat__description {
+  max-width: 500px;
+  margin-top: 20px;
+}
+.cat__temperament {
+  font-style: italic;
+  max-width: 500px;
+  margin-top: 20px;
+}
+
+// // PENTRU LOADER https://cssloaders.github.io/
+// .loader {
+//   width: 48px;
+//   height: 48px;
+//   border: 5px solid #fff;
+//   border-bottom-color: #ff3d00;
+//   border-radius: 50%;
+//   display: inline-block;
+//   box-sizing: border-box;
+//   animation: rotation 1s linear infinite;
+// }
+
+// @keyframes rotation {
+//   0% {
+//     transform: rotate(0deg);
+//   }
+//   100% {
+//     transform: rotate(360deg);
+//   }
+// }
