@@ -7,22 +7,33 @@ axios.defaults.headers.common['x-api-key'] =
 
 // Funcția pentru a efectua cererea pentru colecția de rase
 export function fetchBreeds() {
+  showLoader(); // Arată loader
+  hideError(); // Ascunde eroarea (dacă există)
   return axios
     .get('https://api.thecatapi.com/v1/breeds')
-    .then(response => response.data)
+    .then(response => {
+      hideLoader(); // Ascunde loader după ce s-au încărcat datele cu succes
+      return response.data;
+    })
     .catch(error => {
-      showError('Nu s-a putut obține lista de rase.');
+      showError(); // Afiseaza eroarea
+      hideLoader(); // Ascunde loader în caz de eroare
       throw error;
     });
 }
-
 // Funcția pentru a efectua cererea pentru informații despre pisică în funcție de rasă
 export function fetchCatByBreed(breedId) {
+  showLoader(); // Arată loader
+  hideError(); // Ascunde eroarea (dacă există)
   return axios
     .get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`)
-    .then(response => response.data[0])
+    .then(response => {
+      hideLoader(); // Ascunde loader după ce s-au încărcat datele cu succes
+      return response.data[0];
+    })
     .catch(error => {
-      showError('Nu s-au putut obține informațiile despre pisică.');
+      showError(); // Afiseaza eroarea
+      hideLoader(); // Ascunde loader în caz de eroare
       throw error;
     });
 }
@@ -31,31 +42,23 @@ export function fetchCatByBreed(breedId) {
 export function showLoader() {
   document.querySelector('.loader').style.display = 'block';
   document.querySelector('.cat-info').style.display = 'none';
-  document.querySelector('.breed-select').style.display = 'none';
-  document.querySelector('.error').style.display = 'none';
+  hideError(); // Ascunde eroarea
 }
 
 // Funcția pentru a ascunde loaderul și a afișa elementele corespunzătoare
 export function hideLoader() {
   document.querySelector('.loader').style.display = 'none';
   document.querySelector('.cat-info').style.display = 'flex';
-  document.querySelector('.breed-select').style.display = 'block';
-  document.querySelector('.error').style.display = 'none';
 }
 
 // Funcția pentru a afișa mesajul de eroare și ascunde celelalte elemente
-export function showError(message) {
-  document.querySelector('.error').textContent = message;
+export function showError() {
   document.querySelector('.error').style.display = 'block';
-  document.querySelector('.loader').style.display = 'none';
   document.querySelector('.cat-info').style.display = 'none';
   document.querySelector('.breed-select').style.display = 'none';
 }
 
 // Funcția pentru a sterge mesajul de eroare și afiseaza celelalte elemente
-// export function hideError(message) {
-//   document.querySelector('.error').style.display = 'none';
-//   document.querySelector('.loader').style.display = 'none';
-//   document.querySelector('.cat-info').style.display = 'flex';
-//   document.querySelector('.breed-select').style.display = 'block';
-// }
+export function hideError() {
+  document.querySelector('.error').style.display = 'none';
+}

@@ -1,4 +1,6 @@
 import axios from 'axios';
+import Notiflix from 'notiflix';
+import SlimSelect from 'slim-select';
 
 import {
   fetchBreeds,
@@ -6,7 +8,7 @@ import {
   showLoader,
   hideLoader,
   showError,
-  // hideError,
+  hideError,
 } from './cat-api.js';
 
 axios.defaults.headers.common['x-api-key'] =
@@ -14,7 +16,6 @@ axios.defaults.headers.common['x-api-key'] =
 
 const breedSelect = document.querySelector('.breed-select');
 const catInfo = document.querySelector('.cat-info');
-
 // Funcția pentru a popula selectorul cu opțiuni de rase
 
 function populateBreedsSelect(breeds) {
@@ -34,6 +35,7 @@ function displayCatInfo(cat) {
   catImage.className = 'cat__image';
   catImage.src = cat.url;
   catImage.alt = cat.breeds[0].name;
+
   // Creează un element <div> nou
 
   const catDetails = document.createElement('div');
@@ -66,7 +68,7 @@ breedSelect.addEventListener('change', () => {
   const selectedBreedId = breedSelect.value;
   if (selectedBreedId) {
     showLoader();
-    // hideError(); // Ascunde mesajul de eroare înainte de cerere
+    hideError(); // Ascunde mesajul de eroare înainte de cerere
     fetchCatByBreed(selectedBreedId)
       .then(cat => {
         displayCatInfo(cat);
@@ -81,7 +83,7 @@ breedSelect.addEventListener('change', () => {
 
 // La încărcarea paginii, populați selectorul de rase
 showLoader();
-// hideError(); // Ascunde mesajul de eroare la început
+hideError(); // Ascunde mesajul de eroare la început
 fetchBreeds()
   .then(breeds => {
     populateBreedsSelect(breeds);
