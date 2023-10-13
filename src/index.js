@@ -7,7 +7,6 @@ import {
   fetchCatByBreed,
   showLoader,
   hideLoader,
-  showError,
   hideError,
 } from './cat-api.js';
 
